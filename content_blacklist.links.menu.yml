@@ -1,0 +1,5 @@
+content_blacklist.settings:
+  title: 'Content Blacklist'
+  route_name: content_blacklist.settings
+  parent: system.admin_config_system
+  description: 'Provides a settings form to configure the block output.'

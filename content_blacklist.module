@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\content_blacklist\BlacklistConstants;
+use Drupal\Core\Entity\Query\QueryInterface;
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function content_blacklist_views_data_alter(&$data) {
+  $data['node_field_data']['blacklist'] = array(
+    'title' => t('Blacklist'),
+    'filter' => array(
+      'title' => t('The blacklist filter'),
+      'help' => t('A blacklist to have each content only once on a page.'),
+      'field' => 'id',
+      'id' => 'blacklist_filter',
+    ),
+  );
+}
+
+/**
+ * Implements hook_entity_query_alter().
+ */
+function content_blacklist_entity_query_alter(QueryInterface $query) {
+  $blacklist = \Drupal::service('content_blacklist.blacklist');
+  $config = \Drupal::configFactory()
+    ->get('content_blacklist.settings')
+    ->get('blacklisted_entities');
+  $entity_type = $query->getEntityTypeId();
+  $id = 'id';
+  if (isset($config[$entity_type]) && $config[$entity_type] == 1 &&
+    !empty($blacklist->getBlacklist($entity_type))
+    && !$query->hasTag(BlacklistConstants::NOT_BLACKLISTED)) {
+    if ('node' == $entity_type) {
+      $id = 'nid';
+    }
+    $query->condition($id, $blacklist->getBlacklist($query->getEntityTypeId()), 'NOT IN');
+  }
+}
+
+/**
+ * Implements hook_entity_query_result_alter().
+ */
+function content_blacklist_entity_query_result_alter(QueryInterface $query, $result) {
+  $blacklist = \Drupal::service('content_blacklist.blacklist');
+  $config = \Drupal::configFactory()
+    ->get('content_blacklist.settings')
+    ->get('blacklisted_entities');
+  $entity_type = $query->getEntityTypeId();
+  if (isset($config[$entity_type]) && $config[$entity_type] == 1 &&
+    is_array($result)
+  ) {
+    foreach ($result as $element) {
+      $blacklist->addToBlacklist($query->getEntityTypeId(), $element);
+    }
+  }
+}

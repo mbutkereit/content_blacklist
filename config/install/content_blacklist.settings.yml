@@ -1,0 +1,18 @@
+blacklisted_entities:
+  advertisement_entity: 0
+  aggregator_feed: 0
+  aggregator_item: 0
+  cronpub_entity: 0
+  eform_submission: 0
+  file: 0
+  magazine: 0
+  media: 0
+  menu_link_content: 0
+  metadata: 0
+  node: 1
+  paragraph: 0
+  redirect: 0
+  scheduled_update: 0
+  taxonomy_term: 0
+  user: 0
+ignore_blacklist_pages: "node/12\r\n<front>"

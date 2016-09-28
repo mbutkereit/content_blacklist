@@ -1,0 +1,7 @@
+content_blacklist.settings:
+  path: '/admin/config/system/content_blacklist/settings'
+  defaults:
+    _form: '\Drupal\content_blacklist\Form\SettingsForm'
+    _title: 'Content Blacklist Settings'
+  requirements:
+    _permission: 'administer site configuration'

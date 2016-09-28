@@ -1,0 +1,8 @@
+{
+  "name": "drupal/content_blacklist",
+  "type": "drupal-module",
+  "description": "Content blacklist.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev"
+}

@@ -1,0 +1,3 @@
+services:
+  content_blacklist.blacklist:
+    class: Drupal\content_blacklist\Blacklist

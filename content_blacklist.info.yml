@@ -1,0 +1,6 @@
+name: Content Blacklist
+description: Allow to blacklist content.
+package: Content
+type: module
+core: 8.x
+version: 1.0
